@@ -125,7 +125,7 @@
 		"message_reaction": true,
 		"message_unsend": true,
 		"message_reply": true,
-		"event": true,
+		"event": false,
 		"read_receipt": false,
 		"typ": false,
 		"presence": false
