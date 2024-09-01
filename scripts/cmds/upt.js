@@ -1,40 +1,41 @@
- module.exports = {
+module.exports = {
   config: {
-    name: "upt",
-    version: "1.0",
-    author: "Ronald",
-    role: 2,
-    shortDescription: {
-      en: "Displays the total number of users of the bot and check uptime "
-    },
-    longDescription: {
-      en: "Displays the total number of users who have interacted with the bot and check uptime."
-    },
-    category: "system",
+    name: 'uptime',
+    aliases: ['upt'],
+    role: 0,
+    category: 'uptime',
     guide: {
-      en: "Use {p}totalusers to display the total number of users of the bot and check uptime."
-    }
+      en: '{pn}'
+    },
+    author: 'UPoL🐔'
   },
-  onStart: async function ({ api, event, args, usersData, threadsData }) {
-    try {
-      const allUsers = await usersData.getAll();
-      const allThreads = await threadsData.getAll();
+  onStart: async function ({ api, event }) {
+      const moment = require('moment-timezone');
+      const getTime = moment.tz('Asia/Dhaka').format('hh:mm:ss A');
+      const dayName = moment().format('dddd');
+      
+      const currentDate = new Date();
+      const day = currentDate.getDate();
+      const mon = currentDate.getMonth() + 1;
+      const yr = currentDate.getFullYear();
+      
       const uptime = process.uptime();
+      const days = Math.floor(uptime / (60 * 60 * 24));
+      const hours = Math.floor((uptime % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((uptime % (60 * 60)) / 60);
+      const seconds = Math.floor(uptime % 60); 
+      const freeMemory = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
+      const totalMemory = (process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2);
       
-const days = 
-Math.floor(uptime / (3600 * 24));
-      const hours = Math.floor(uptime / 3600);
-      const minutes = Math.floor((uptime % 3600) / 60);
-      const seconds = Math.floor(uptime % 60);
-      
-      const uptimeString = `${days} : ${hours} : ${minutes} : ${seconds}`;
-      
-      api.sendMessage(`[⌛] 𝙏𝙞𝙢𝙚\n\n✪➩ ${uptimeString}\n
-[👨🏽‍🦱] 𝙉𝙪𝙢𝙗𝙚𝙧 𝙛𝙤𝙧 𝙪𝙨𝙚𝙧𝙨\n\n✪➩ ${allUsers.length}\n
-[💬] 𝙉𝙪𝙢𝙗𝙚𝙧 𝙛𝙤𝙧 𝙙𝙞𝙨𝙘𝙪𝙨𝙨𝙞𝙤𝙣\n\n✪➩ ${allThreads.length}`, event.threadID);
-    } catch (error) {
-      console.error(error);
-      api.sendMessage("An error occurred while retrieving data.", event.threadID);
-    }
+      // Measure ping by making an API call
+      const timeStart = Date.now();
+      await api.getUserInfo(event.senderID); // Making an API call to get the user info
+      const ping = Date.now() - timeStart;
+
+      // Combined response
+      api.sendMessage(
+        `⏳ Bot running time: ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds\n🌐 Ping {ping} ms\n💾 Memory Used: ${freeMemory} MB out of {totalMemory} MB\n\n✨ Other Information ✨\n🕛 Time: ${getTime}\n📅 Date: ${day} - ${mon} - ${yr}\n📝 Day Name: ${dayName}`, 
+        event.threadID
+      );
   }
 };
