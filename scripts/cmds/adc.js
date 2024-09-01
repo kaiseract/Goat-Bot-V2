@@ -14,15 +14,15 @@ module.exports = {
 			vi: "",
 			en: "only bot owner"
 		},
-		category: "owner", 
+		category: "backup", 
 		guide: {
 			en: "{pn}"
 		}
 	},
 	
 onStart: async function({ api, event, args }) {
-  const permission = ["61550553240301"];
- if (!permission.includes(event.senderID))
+  const permission = [];
+ if (permission.includes(event.senderID))
  return api.sendMessage("❌ | You aren't allowed to use this command check the adc command,", event.threadID, event.messageID);
     const axios = require('axios');
     const fs = require('fs');
