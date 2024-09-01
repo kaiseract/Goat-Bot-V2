@@ -2,39 +2,35 @@ module.exports = {
   config: {
     name: "clear",
     aliases: [],
-    author: "kshitiz",  
+    author: "kshitiz",
     version: "2.0",
     cooldowns: 5,
     role: 0,
     shortDescription: {
-      en: ""
+      en: "Clear bot messages"
     },
     longDescription: {
-      en: "unsent all messages sent by bot"
+      en: "Unsend all messages sent by the bot in the current chat."
     },
     category: "𝗕𝗢𝗫",
     guide: {
-      en: "{p}{n}"
+      en: "{p}{n} - Unsend all bot messages."
     }
   },
+  
   onStart: async function ({ api, event }) {
+    const threadID = event.threadID;
 
-    const unsendBotMessages = async () => {
-      const threadID = event.threadID;
-
-
-      const botMessages = await api.getThreadHistory(threadID, 100); // Adjust the limit as needed 50 = 50 msg
-
-
+    try {
+      const botMessages = await api.getThreadHistory(threadID, 50);
       const botSentMessages = botMessages.filter(message => message.senderID === api.getCurrentUserID());
-
-
+      
       for (const message of botSentMessages) {
         await api.unsendMessage(message.messageID);
       }
-    };
 
-
-    await unsendBotMessages();
+    } catch (error) {
+      console.error("An error occurred while unsending messages:", error);
+    }
   }
 };
