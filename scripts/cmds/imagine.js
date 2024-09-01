@@ -1,77 +1,59 @@
-const axios = require('axios');
-const path = require('path');
-const fs = require('fs-extra');
-
-async function checkAuthor(authorName) {
-  try {
-    const response = await axios.get('https://author-check.vercel.app/name');
-    const apiAuthor = response.data.name;
-    return apiAuthor === authorName;
-  } catch (error) {
-    console.error("Error checking author:", error);
-    return false;
-  }
-}
+const fs = require("fs");
+const path = require("path");
+const axios = require("axios");
 
 module.exports = {
   config: {
     name: "imagine",
-    aliases: ["imagine"],
+    aliases: [],
+    author: "UPoL",
     version: "1.0",
-    author: "Vex_Kshitiz",
-    countDown: 50,
+    cooldowns: 5,
     role: 0,
-    longDescription: {
-      vi: '',
-      en: "Imagine"
-    },
-    category: "ai",
-    guide: {
-      vi: '',
-      en: "{pn} <prompt> - <ratio>"
-    }
+    shortDescription: "Generate an image based on a prompt.",
+    longDescription: "Generates an image using the provided prompt.",
+    category: "image",
+    guide: "{pn} <prompt>",
   },
+  onStart: async function ({ message, args, api, event }) {
+    const obfuscatedAuthor = String.fromCharCode(85, 80, 111, 76);
+    if (this.config.author !== obfuscatedAuthor) {
+      return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
+    }
 
-  onStart: async function ({ api, commandName, event, args }) {
+    const prompt = args.join(" ");
+    const apikey = 'UPoLxyzFM-69vsg';
+
+    if (!prompt) {
+      return api.sendMessage("👀 Please provide a prompt.", event.threadID);
+    }
+
+    api.sendMessage("⏳ Generating your imagination....", event.threadID, event.messageID);
+
     try {
-      api.setMessageReaction("✅", event.messageID, () => {}, true);
+      const imagineApiUrl = `https://upol-ai-docs.onrender.com/imagine?prompt=${encodeURIComponent(prompt)}&apikey=${apikey}`;
 
-      const isAuthorValid = await checkAuthor(module.exports.config.author);
-      if (!isAuthorValid) {
-        api.sendMessage({ body: "Author changer alert! This cmd belongs to Vex_Kshitiz." }, event.threadID, event.messageID);
-        api.setMessageReaction("❌", event.messageID, () => {}, true);
-        return;
+      const imagineResponse = await axios.get(imagineApiUrl, {
+        responseType: "arraybuffer"
+      });
+
+      const cacheFolderPath = path.join(__dirname, "cache");
+      if (!fs.existsSync(cacheFolderPath)) {
+        fs.mkdirSync(cacheFolderPath);
       }
+      const imagePath = path.join(cacheFolderPath, `${Date.now()}_generated_image.png`);
+      fs.writeFileSync(imagePath, Buffer.from(imagineResponse.data, "binary"));
 
-      let prompt = args.join(' ');
-      let ratio = '1:1';
-
-      if (args.length > 0 && args.includes('-')) {
-        const parts = args.join(' ').split('-').map(part => part.trim());
-        if (parts.length === 2) {
-          prompt = parts[0];
-          ratio = parts[1];
-        }
-      }
-
-      const response = await axios.get(`https://imagine-kshitiz-2u15.onrender.com/kshitiz?prompt=${encodeURIComponent(prompt)}&ratio=${encodeURIComponent(ratio)}`);
-      const imageUrls = response.data.imageUrls;
-
-      const imgData = [];
-      const numberOfImages = 4;
-
-      for (let i = 0; i < Math.min(numberOfImages, imageUrls.length); i++) {
-        const imageUrl = imageUrls[i];
-        const imgResponse = await axios.get(imageUrl, { responseType: 'arraybuffer' });
-        const imgPath = path.join(__dirname, 'cache', `${i + 1}.jpg`);
-        await fs.outputFile(imgPath, imgResponse.data);
-        imgData.push(fs.createReadStream(imgPath));
-      }
-
-      await api.sendMessage({ body: '', attachment: imgData }, event.threadID, event.messageID);
+      const stream = fs.createReadStream(imagePath);
+      api.sendMessage({
+        body: "",
+        attachment: stream
+      }, event.threadID, () => {
+        fs.unlinkSync(imagePath);
+      });
     } catch (error) {
       console.error("Error:", error);
-      api.sendMessage("error contact kshitiz", event.threadID, event.messageID);
+      api.sendMessage("❌ | An error occurred. Please try again later.", event.threadID, event.messageID);
     }
   }
 };
