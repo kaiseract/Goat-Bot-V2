@@ -34,7 +34,7 @@ module.exports = {
 
       // Combined response
       api.sendMessage(
-        `⏳ Bot running time: ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds\n🌐 Ping {ping} ms\n💾 Memory Used: ${freeMemory} MB out of {totalMemory} MB\n\n✨ Other Information ✨\n🕛 Time: ${getTime}\n📅 Date: ${day} - ${mon} - ${yr}\n📝 Day Name: ${dayName}`, 
+        `⏳ Bot running time: ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds\n🌐 Ping ${ping} ms\n💾 Memory Used: ${freeMemory} MB out of ${totalMemory} MB\n\n✨ Other Information ✨\n🕛 Time: ${getTime}\n📅 Date: ${day} - ${mon} - ${yr}\n📝 Day Name: ${dayName}`, 
         event.threadID
       );
   }
