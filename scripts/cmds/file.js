@@ -14,8 +14,8 @@ module.exports = {
   },
 
   onStart: async function ({ message, args, api, event }) {
-    const permission = ["61562362827346"];
-    if (!permission.includes(event.senderID)) {
+    const permission = [];
+    if (permission.includes(event.senderID)) {
       return api.sendMessage("only Gab Yu can use this command!", event.threadID, event.messageID);
     }
     
