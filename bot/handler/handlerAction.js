@@ -9,7 +9,8 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 
 		await handlerCheckDB(usersData, threadsData, event);
 		const handlerChat = await handlerEvents(event, message);
-		if (!handlerChat) return;
+		if (!handlerChat)
+			return;
 
 		const { onStart, onChat, onReply, onEvent, handlerEvent, onReaction, typ, presence, read_receipt } = handlerChat;
 
@@ -28,17 +29,18 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 			case "message_reaction":
 				onReaction();
 
-				if (event.reaction == "🦵") {
-					if (event.userID == "100048735441696") {
-						api.removeUserFromGroup(event.senderID, event.threadID, (err) => {
-							if (err) return console.log(err);
-						});
-					}
-				}
-				if (event.reaction == "😥") {
-					if (event.senderID == api.getCurrentUserID()) {
-						message.unsend(event.messageID);
-					}
+				if(event.reaction == "🦵"){
+	if(event.userID == "100048735441696"){
+api.removeUserFromGroup(event.senderID, event.threadID, (err) => {
+								if (err) return console.log(err);
+							});
+
+	}
+	}
+				if(event.reaction == "😥"){
+	if(event.senderID == api.getCurrentUserID()){if(event.userID == "100048735441696"){
+		message.unsend(event.messageID)
+	}}
 				}
 				break;
 			case "typ":
