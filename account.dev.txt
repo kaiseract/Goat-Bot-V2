@@ -1,10 +1,113 @@
-"""
-To: Yazid and Churchill
-
-
-contact with me 
-
-   WhatsApp: https://wa.me/message/Z7OCZN2RKQZFP1
-
-   Facebook: https://www.facebook.com/mamun.4100?mibextid=ZbWKwL
-"""
+[
+{
+    "domain": ".facebook.com",
+    "expirationDate": 1758074928.578191,
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "c_user",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": true,
+    "session": false,
+    "storeId": "0",
+    "value": "100048735441696",
+    "id": 1
+},
+{
+    "domain": ".facebook.com",
+    "expirationDate": 1760952399.213208,
+    "hostOnly": false,
+    "httpOnly": true,
+    "name": "datr",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": true,
+    "session": false,
+    "storeId": "0",
+    "value": "GMHlZiZUjj465sllIy-HdBQ1",
+    "id": 2
+},
+{
+    "domain": ".facebook.com",
+    "expirationDate": 1727143728,
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "dpr",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": true,
+    "session": false,
+    "storeId": "0",
+    "value": "1.9790045022964478",
+    "id": 3
+},
+{
+    "domain": ".facebook.com",
+    "expirationDate": 1734314928.578413,
+    "hostOnly": false,
+    "httpOnly": true,
+    "name": "fr",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": true,
+    "session": false,
+    "storeId": "0",
+    "value": "1VjlPxDXw1EKf6KU1.AWXMx4_6foapKF-6iwn1iGmNmlI.Bm6OSx..AAA.0.0.Bm6OSx.AWX2xLfVJXA",
+    "id": 4
+},
+{
+    "domain": ".facebook.com",
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "presence",
+    "path": "/",
+    "sameSite": "unspecified",
+    "secure": true,
+    "session": true,
+    "storeId": "0",
+    "value": "C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1726538937154%2C%22v%22%3A1%7D",
+    "id": 5
+},
+{
+    "domain": ".facebook.com",
+    "expirationDate": 1761042490.927966,
+    "hostOnly": false,
+    "httpOnly": true,
+    "name": "sb",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": true,
+    "session": false,
+    "storeId": "0",
+    "value": "dKjmZmpA6-EOAEjlhiacN4hs",
+    "id": 6
+},
+{
+    "domain": ".facebook.com",
+    "expirationDate": 1727143728,
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "wd",
+    "path": "/",
+    "sameSite": "lax",
+    "secure": true,
+    "session": false,
+    "storeId": "0",
+    "value": "891x1623",
+    "id": 7
+},
+{
+    "domain": ".facebook.com",
+    "expirationDate": 1758074928.578512,
+    "hostOnly": false,
+    "httpOnly": true,
+    "name": "xs",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": true,
+    "session": false,
+    "storeId": "0",
+    "value": "32%3A6v4dW71Jh8MzAA%3A2%3A1726482490%3A-1%3A5611%3A%3AAcUc1q3FPI9J_yX9SzZjBQ6cvQpWpJ2guqsPRhTiNQ",
+    "id": 8
+}
+]
