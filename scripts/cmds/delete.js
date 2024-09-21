@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
   config: {
     name: "delete",
-    aliases: ["d","rm"]
+    aliases: ["d","rm"],
     author: "UPoL The MiMis MoMo ☺🌸",
     version: "1.0",
     role: 2,
