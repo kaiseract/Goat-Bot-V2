@@ -11,7 +11,7 @@ module.exports = {
     version: "2.0",
     author: "Vex_Kshitiz",
     countDown: 20,
-    role: 2,
+    role: 0,
     shortDescription: "remini",
     longDescription: "enhance the image quality",
     category: "tool",
